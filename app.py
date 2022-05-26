@@ -33,7 +33,7 @@ base_url=os.environ['base_url']
 headers={'Authorization': 'Token %s' %voyages_auth_token}
 
 mapbox_access_token=os.environ['mapbox_access_token']
-# url='https://voyages3-api.crc.rice.edu/voyage/caches'
+url='https://voyages3-api.crc.rice.edu/voyage/caches'
 
 bar_x_vars=[
 	'voyage_ship__imputed_nationality__name',
