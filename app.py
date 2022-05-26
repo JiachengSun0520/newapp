@@ -28,7 +28,7 @@ server = app.server
 import os
 
 voyages_auth_token=os.environ['voyages_auth_token']
-base_url=os.environ['base_url']
+base_url=os.environ['base_url']	
 
 headers={'Authorization': 'Token %s' %voyages_auth_token}
 
@@ -95,27 +95,32 @@ app.layout = html.Div([
     Input("bar_y", "value")
 )
 def update_bar_chart(bar_x, bar_y):
-    data = {
-        'selected_fields': [bar_x,bar_y],
-        'cachename': ['voyage_bar_and_donut_charts']
-    }
+	data = {
+	'selected_fields': [bar_x,bar_y],
+	'cachename': ['voyage_bar_and_donut_charts']
+	}
 
-    # print(data)
-    # mask = df["day"] == day
+	# print(data)
+	# mask = df["day"] == day
 
-    # url='https://voyages3-api.crc.rice.edu/voyage/caches'
+	# url='https://voyages3-api.crc.rice.edu/voyage/caches'
 
-    r = requests.post(url, data=data, headers=headers)
-    j = r.text
+	r = requests.post(url, data=data, headers=headers)
+	j = r.text
 
-    df = pd.read_json(j)
-    # print(df)
-    fig = px.bar(df, x=bar_x, y=bar_y)
-    fig.update_layout({
-		'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-		'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+	df = pd.read_json(j)
+	# print(df)
+	df2 = df.groupby([bar_x, # combines data for duplicate geo and date vars. 
+	
+				], as_index=False).sum()
+
+	fig = px.bar(df2, x=bar_x, y=bar_y)
+
+	fig.update_layout({
+	'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+	'paper_bgcolor': 'rgba(0, 0, 0, 0)',
 	})
-    return fig
+	return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+	app.run_server(debug=True)	
