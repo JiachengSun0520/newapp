@@ -25,8 +25,15 @@ import dash_bootstrap_components as dbc
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],suppress_callback_exceptions=True)
 server = app.server
 
+import os
 
-url='https://voyages3-api.crc.rice.edu/voyage/caches'
+voyages_auth_token=os.environ['voyages_auth_token']
+base_url=os.environ['base_url']
+
+headers={'Authorization': 'Token %s' %voyages_auth_token}
+
+mapbox_access_token=os.environ['mapbox_access_token']
+# url='https://voyages3-api.crc.rice.edu/voyage/caches'
 
 bar_x_vars=[
 	'voyage_ship__imputed_nationality__name',
