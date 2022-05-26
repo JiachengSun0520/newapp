@@ -20,7 +20,10 @@ from dash import dcc
 # import dash_html_components as html
 from dash import html
 
+import dash_bootstrap_components as dbc
 
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],suppress_callback_exceptions=True)
+server = app.server
 
 bar_x_vars=[
 	'voyage_ship__imputed_nationality__name',
