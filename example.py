@@ -24,6 +24,9 @@ import dash_bootstrap_components as dbc
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],suppress_callback_exceptions=True)
 server = app.server
+headers={'Authorization': 'Token 3e9ed2e0fa70a1a5cb6f34eb7a30ebde208ecd8f'}
+
+url='https://voyages3-api.crc.rice.edu/voyage/caches'
 
 bar_x_vars=[
 	'voyage_ship__imputed_nationality__name',
@@ -93,9 +96,9 @@ def update_bar_chart(bar_x, bar_y):
     # print(data)
     # mask = df["day"] == day
 
-    headers={'Authorization': 'Token 3e9ed2e0fa70a1a5cb6f34eb7a30ebde208ecd8f'}
+    # headers={'Authorization': 'Token 3e9ed2e0fa70a1a5cb6f34eb7a30ebde208ecd8f'}
 
-    url='https://voyages3-api.crc.rice.edu/voyage/caches'
+    # url='https://voyages3-api.crc.rice.edu/voyage/caches'
 
     r = requests.post(url, data=data, headers=headers)
     j = r.text
@@ -109,4 +112,5 @@ def update_bar_chart(bar_x, bar_y):
 	})
     return fig
 
-app.run_server(debug=True, use_reloader = False)    
+if __name__ == '__main__':
+    app.run_server(debug=True)
